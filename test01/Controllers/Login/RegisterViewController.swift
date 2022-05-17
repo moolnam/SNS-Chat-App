@@ -8,7 +8,7 @@
 import UIKit
 
 class RegisterViewController: UIViewController {
-    // ex)
+    
     
     //MARK: - UIView
     
@@ -104,7 +104,6 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
         title = "회원가입"
         view.backgroundColor = UIColor(named: "RegisterColor")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "회원가입", style: .plain, target: self, action: #selector(didTapRegister))
         
         registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
         
@@ -168,9 +167,13 @@ class RegisterViewController: UIViewController {
     @objc private func registerButtonTapped() {
         
         firstNameField.resignFirstResponder()
+        // 텍스트필드 내려간다.
         secondNameField.resignFirstResponder()
+        // 텍스트필드 내려간다.
         emailField.resignFirstResponder()
+        // 텍스트필드 내려간다.
         passwordField.resignFirstResponder()
+        // 텍스트필드 내려간다.
         
         guard let email = emailField.text,
               let password = passwordField.text,
@@ -195,14 +198,6 @@ class RegisterViewController: UIViewController {
     }
     
     
-    
-    @objc private func didTapRegister() {
-        print("Did Tap Register Clicked")
-        let vc = RegisterViewController()
-        vc.title = "계정 만들기"
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
 }
 
 //MARK: - UITextFieldDelegate
@@ -214,10 +209,14 @@ extension RegisterViewController: UITextFieldDelegate {
         }
         else if textField == passwordField {
             registerButtonTapped()
+            
         }
+        
         return true
     }
 }
+
+//MARK: - UIImagePickerControllerDelegate
 
 extension RegisterViewController: UIImagePickerControllerDelegate {
     

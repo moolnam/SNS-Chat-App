@@ -149,9 +149,12 @@ extension LoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == emailField {
             passwordField.becomeFirstResponder()
+            // emailField 에 있다면 키보드를 유지시키고
         }
         else if textField == passwordField {
             loginButtonTapped()
+            // passwordfield 에 있다면 loginButtonTapped() 메소드를 실행 시킨다. 
+            // loginButtonTapped 안에 있는 resignFirstResponder() 각각 텍스트필드에 있는 키보드를 전체 내리게 한다.
         }
         return true
     }
