@@ -225,15 +225,23 @@ extension RegisterViewController: UIImagePickerControllerDelegate {
         
         actionSheet.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
         
-        actionSheet.addAction(UIAlertAction(title: "사진 선택", style: .default, handler: { _ in
-            
+        actionSheet.addAction(UIAlertAction(title: "사진 찍기", style: .default, handler: { [weak self] _ in
+            self?.presentCamera()
         }))
         
-        actionSheet.addAction(UIAlertAction(title: "사진 선택", style: .default, handler: { _ in
-            
+        actionSheet.addAction(UIAlertAction(title: "사진 선택", style: .default, handler: { [weak self] _ in
+            self?.presentPhotoPicker()
         }))
         
         present(actionSheet, animated: true)
+        
+    }
+    
+    func presentCamera() {
+        
+    }
+    
+    func presentPhotoPicker() {
         
     }
     
