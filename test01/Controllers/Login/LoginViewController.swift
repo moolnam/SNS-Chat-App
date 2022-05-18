@@ -125,13 +125,23 @@ class LoginViewController: UIViewController {
             return
         }
         
-        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+        //MARK: - Firebase Log In
+        // Firebase Lon in
+        
+        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+            
+            guard let strongSelf = self else {
+                // strongSelf 는 LoginViewController 를 가지고 있다
+                return
+            }
+            
             guard let result = authResult, error == nil else {
                 print("Failed to log in user with email : \(email)")
                 return
             }
             let user = result.user
             print("Logged In User : \(user)")
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
         }
     }
     

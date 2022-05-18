@@ -197,12 +197,19 @@ class RegisterViewController: UIViewController {
         
         // Firebase Login
         
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
+            
+            guard let strongSelf = self else {
+                // strongSelf 는 RegisterViewController 를 가지고 있다.
+                return
+            }
+            
             guard let result = authResult, error == nil else {
                 return
             }
             let user = result.user
             print("Created User : \(user)")
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
         }
     }
     
