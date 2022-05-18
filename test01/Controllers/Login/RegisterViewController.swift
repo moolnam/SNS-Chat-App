@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RegisterViewController: UIViewController {
     
@@ -20,10 +21,43 @@ class RegisterViewController: UIViewController {
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person")
+        imageView.image = UIImage(systemName: "person.crop.circle.badge.plus")
         imageView.tintColor = UIColor.green
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.masksToBounds = true
+        imageView.layer.borderWidth = 2
+        imageView.layer.borderColor = UIColor.green.cgColor
         return imageView
+    }()
+    
+    private let firstNameField: UITextField = {
+        let firstNameField = UITextField()
+        firstNameField.autocapitalizationType = .none
+        firstNameField.autocorrectionType = .no
+        firstNameField.returnKeyType = .continue
+        firstNameField.layer.cornerRadius = 12
+        firstNameField.layer.borderWidth = 1
+        firstNameField.layer.borderColor = UIColor.black.cgColor
+        firstNameField.placeholder = "이름을 입력하세요"
+        firstNameField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        firstNameField.leftViewMode = .always
+        firstNameField.backgroundColor = .white
+        return firstNameField
+    }()
+    
+    private let secondNameField: UITextField = {
+        let secondNameField = UITextField()
+        secondNameField.autocapitalizationType = .none
+        secondNameField.autocorrectionType = .no
+        secondNameField.returnKeyType = .continue
+        secondNameField.layer.cornerRadius = 12
+        secondNameField.layer.borderWidth = 1
+        secondNameField.layer.borderColor = UIColor.black.cgColor
+        secondNameField.placeholder = "성을 입력하세요"
+        secondNameField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        secondNameField.leftViewMode = .always
+        secondNameField.backgroundColor = .white
+        return secondNameField
     }()
     
     private let emailField: UITextField = {
@@ -57,35 +91,7 @@ class RegisterViewController: UIViewController {
         return passwordField
     }()
     
-    private let firstNameField: UITextField = {
-        let emailField = UITextField()
-        emailField.autocapitalizationType = .none
-        emailField.autocorrectionType = .no
-        emailField.returnKeyType = .continue
-        emailField.layer.cornerRadius = 12
-        emailField.layer.borderWidth = 1
-        emailField.layer.borderColor = UIColor.black.cgColor
-        emailField.placeholder = "이름을 입력하세요"
-        emailField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
-        emailField.leftViewMode = .always
-        emailField.backgroundColor = .white
-        return emailField
-    }()
     
-    private let secondNameField: UITextField = {
-        let emailField = UITextField()
-        emailField.autocapitalizationType = .none
-        emailField.autocorrectionType = .no
-        emailField.returnKeyType = .continue
-        emailField.layer.cornerRadius = 12
-        emailField.layer.borderWidth = 1
-        emailField.layer.borderColor = UIColor.black.cgColor
-        emailField.placeholder = "성을 입력하세요"
-        emailField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
-        emailField.leftViewMode = .always
-        emailField.backgroundColor = .white
-        return emailField
-    }()
     
     private let registerButton: UIButton = {
         let button = UIButton()
@@ -144,6 +150,7 @@ class RegisterViewController: UIViewController {
                                  y: 20,
                                  width: size,
                                  height: size)
+        imageView.layer.cornerRadius = imageView.wigth/2
         
         firstNameField.frame = CGRect(x: paddingSize, y: imageView.bottom+paddingSize, width: widthSize, height: heightSize)
         
@@ -187,6 +194,16 @@ class RegisterViewController: UIViewController {
             alertUserLoginError()
             return
         }
+        
+        // Firebase Login
+        
+        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            guard let result = authResult, error == nil else {
+                return
+            }
+            let user = result.user
+            print("Created User : \(user)")
+        }
     }
     
     func alertUserLoginError() {
@@ -204,6 +221,7 @@ class RegisterViewController: UIViewController {
 
 extension RegisterViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
         if textField == emailField {
             passwordField.becomeFirstResponder()
         }
@@ -216,9 +234,9 @@ extension RegisterViewController: UITextFieldDelegate {
     }
 }
 
-//MARK: - UIImagePickerControllerDelegate
+//MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 
-extension RegisterViewController: UIImagePickerControllerDelegate {
+extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func presentPhotoActionSheet() {
         let actionSheet = UIAlertController(title: "프로필 사진", message: "사진을 골라주세요", preferredStyle: .actionSheet)
@@ -227,10 +245,12 @@ extension RegisterViewController: UIImagePickerControllerDelegate {
         
         actionSheet.addAction(UIAlertAction(title: "사진 찍기", style: .default, handler: { [weak self] _ in
             self?.presentCamera()
+            // 사진 찍기 함수
         }))
         
         actionSheet.addAction(UIAlertAction(title: "사진 선택", style: .default, handler: { [weak self] _ in
             self?.presentPhotoPicker()
+            // 사진앱 함수
         }))
         
         present(actionSheet, animated: true)
@@ -238,18 +258,32 @@ extension RegisterViewController: UIImagePickerControllerDelegate {
     }
     
     func presentCamera() {
-        
+        let vc = UIImagePickerController()
+        vc.sourceType = .camera
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
     }
     
     func presentPhotoPicker() {
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
         
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
+        picker.dismiss(animated: true, completion: nil)
+        guard let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
+            // info 안에 Image가 있으면 자식인 UIImage 로 형변환하고 값이 있으면 selectedImage 안에 넣고 값이 없으면 리턴된다. 그러므로 seletedImage 는 UIImage 타입이다.
+            return
+        }
+        self.imageView.image = selectedImage
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        
+        picker.dismiss(animated: true, completion: nil)
     }
 }
