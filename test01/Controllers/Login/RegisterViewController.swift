@@ -207,9 +207,10 @@ class RegisterViewController: UIViewController {
             }
             
             guard !exist else {
+                // 이미 사용자 존재
+                // 이 부분이 문제인데..
                 strongSelf.alertUserLoginError(message: "이미 계정 있음")
                 print("이미 계정 있음")
-                // 이미 사용자 존재
                 return
             }
             
