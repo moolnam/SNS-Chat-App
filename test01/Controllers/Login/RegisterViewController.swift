@@ -109,7 +109,7 @@ class RegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "회원가입"
-        view.backgroundColor = UIColor(named: "RegisterColor")
+        view.backgroundColor = UIColor(named: "LoginColor")
         
         registerButton.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
         
