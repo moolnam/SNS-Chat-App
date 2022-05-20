@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
 
 class RegisterViewController: UIViewController {
     
@@ -45,19 +46,19 @@ class RegisterViewController: UIViewController {
         return firstNameField
     }()
     
-    private let secondNameField: UITextField = {
-        let secondNameField = UITextField()
-        secondNameField.autocapitalizationType = .none
-        secondNameField.autocorrectionType = .no
-        secondNameField.returnKeyType = .continue
-        secondNameField.layer.cornerRadius = 12
-        secondNameField.layer.borderWidth = 1
-        secondNameField.layer.borderColor = UIColor.black.cgColor
-        secondNameField.placeholder = "성을 입력하세요"
-        secondNameField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
-        secondNameField.leftViewMode = .always
-        secondNameField.backgroundColor = .white
-        return secondNameField
+    private let lastNameField: UITextField = {
+        let lastNameField = UITextField()
+        lastNameField.autocapitalizationType = .none
+        lastNameField.autocorrectionType = .no
+        lastNameField.returnKeyType = .continue
+        lastNameField.layer.cornerRadius = 12
+        lastNameField.layer.borderWidth = 1
+        lastNameField.layer.borderColor = UIColor.black.cgColor
+        lastNameField.placeholder = "성을 입력하세요"
+        lastNameField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        lastNameField.leftViewMode = .always
+        lastNameField.backgroundColor = .white
+        return lastNameField
     }()
     
     private let emailField: UITextField = {
@@ -119,7 +120,7 @@ class RegisterViewController: UIViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(imageView)
         scrollView.addSubview(firstNameField)
-        scrollView.addSubview(secondNameField)
+        scrollView.addSubview(lastNameField)
         scrollView.addSubview(emailField)
         scrollView.addSubview(passwordField)
         scrollView.addSubview(registerButton)
@@ -154,9 +155,9 @@ class RegisterViewController: UIViewController {
         
         firstNameField.frame = CGRect(x: paddingSize, y: imageView.bottom+paddingSize, width: widthSize, height: heightSize)
         
-        secondNameField.frame = CGRect(x: paddingSize, y: firstNameField.bottom+paddingSize, width: widthSize, height: heightSize)
+        lastNameField.frame = CGRect(x: paddingSize, y: firstNameField.bottom+paddingSize, width: widthSize, height: heightSize)
         
-        emailField.frame = CGRect(x: paddingSize, y: secondNameField.bottom+paddingSize, width: widthSize, height: heightSize)
+        emailField.frame = CGRect(x: paddingSize, y: lastNameField.bottom+paddingSize, width: widthSize, height: heightSize)
         print(imageView.frame)
         
         passwordField.frame = CGRect(x: paddingSize, y: emailField.bottom+paddingSize, width: widthSize, height: heightSize)
@@ -175,7 +176,7 @@ class RegisterViewController: UIViewController {
         
         firstNameField.resignFirstResponder()
         // 텍스트필드 내려간다.
-        secondNameField.resignFirstResponder()
+        lastNameField.resignFirstResponder()
         // 텍스트필드 내려간다.
         emailField.resignFirstResponder()
         // 텍스트필드 내려간다.
@@ -185,11 +186,11 @@ class RegisterViewController: UIViewController {
         guard let email = emailField.text,
               let password = passwordField.text,
               let firstName = firstNameField.text,
-              let secondName = secondNameField.text,
+              let lastName = lastNameField.text,
               !email.isEmpty,
               !password.isEmpty,
               !firstName.isEmpty,
-              !secondName.isEmpty,
+              !lastName.isEmpty,
               password.count > 6 else {
             alertUserLoginError()
             return
@@ -197,25 +198,44 @@ class RegisterViewController: UIViewController {
         
         // Firebase Login
         
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
+        DatabaseManager.shared.userExists(with: email) { [weak self] exist in
+            print("만약 이미 이메일 계정이 있다면")
             
             guard let strongSelf = self else {
                 // strongSelf 는 RegisterViewController 를 가지고 있다.
                 return
             }
             
-            guard let result = authResult, error == nil else {
+            guard !exist else {
+                strongSelf.alertUserLoginError(message: "이미 계정 있음")
+                print("이미 계정 있음")
+                // 이미 사용자 존재
                 return
             }
-            let user = result.user
-            print("Created User : \(user)")
-            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+            
+            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password, completion: { authResult, error in
+                print("파이어 베이스 계정 생성")
+                
+                guard authResult != nil, error == nil else {
+                    print("파이어 베이스 계정 생성 안됨")
+                    return
+                }
+                
+                DatabaseManager.shared.insertUser(with: ChatAppUser(
+                    firstName: firstName,
+                    lastName: lastName,
+                    emailAdress: email))
+                
+                strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+            })
         }
+        
+        
     }
     
-    func alertUserLoginError() {
+    func alertUserLoginError(message: String = "다시 확인해 주세요") {
         print("Error \(emailField), \(passwordField)")
-        let alert = UIAlertController(title: "오류", message: "다시 확인해 주세요", preferredStyle: .alert)
+        let alert = UIAlertController(title: "오류", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "닫기", style: .cancel, handler: nil))
         
         present(alert, animated: true)

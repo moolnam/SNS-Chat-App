@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
 
 class ConversationViewController: UIViewController {
 
@@ -14,7 +15,7 @@ class ConversationViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .red
         
-        DatabaseManager.shared.test()
+//        DatabaseManager.shared.test()
         
     }
     
