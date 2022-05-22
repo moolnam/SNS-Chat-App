@@ -208,8 +208,6 @@ class RegisterViewController: UIViewController {
             
             guard !exist else {
                 // 이미 사용자 존재
-                // 이 부분이 문제인데..
-                strongSelf.alertUserLoginError(message: "이미 계정 있음")
                 print("이미 계정 있음")
                 return
             }
@@ -218,6 +216,7 @@ class RegisterViewController: UIViewController {
                 print("파이어 베이스 계정 생성")
                 
                 guard authResult != nil, error == nil else {
+                    strongSelf.alertUserLoginError(message: "이미 계정 있음")
                     print("파이어 베이스 계정 생성 안됨")
                     return
                 }
