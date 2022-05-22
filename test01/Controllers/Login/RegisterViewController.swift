@@ -224,8 +224,12 @@ class RegisterViewController: UIViewController {
                 
                 DatabaseManager.shared.insertUser(with: ChatAppUser(
                     firstName: firstName,
+                    // firstName 텍스트 필드 정보가 저장됨
                     lastName: lastName,
-                    emailAdress: email))
+                    // lastName 텍스트 필드 정보가 저장됨
+                    emailAdress: email
+                    // email 텍스트 필드 정보가 저장됨
+                ))
                 
                 strongSelf.navigationController?.dismiss(animated: true, completion: nil)
             })

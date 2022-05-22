@@ -13,7 +13,7 @@ import FirebaseDatabase
 class LoginViewController: UIViewController {
     
     private let scrollView: UIScrollView = {
-       let scrollView = UIScrollView()
+        let scrollView = UIScrollView()
         scrollView.clipsToBounds = true
         return scrollView
     }()
@@ -68,7 +68,7 @@ class LoginViewController: UIViewController {
     }()
     
     //MARK: - viewDidLoad
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "로그인"
@@ -162,7 +162,7 @@ class LoginViewController: UIViewController {
         vc.title = "계정 만들기"
         navigationController?.pushViewController(vc, animated: true)
     }
-
+    
 }
 
 //MARK: - UITextFieldDelegate
@@ -175,7 +175,7 @@ extension LoginViewController: UITextFieldDelegate {
         }
         else if textField == passwordField {
             loginButtonTapped()
-            // passwordfield 에 있다면 loginButtonTapped() 메소드를 실행 시킨다. 
+            // passwordfield 에 있다면 loginButtonTapped() 메소드를 실행 시킨다.
             // loginButtonTapped 안에 있는 resignFirstResponder() 각각 텍스트필드에 있는 키보드를 전체 내리게 한다.
         }
         return true

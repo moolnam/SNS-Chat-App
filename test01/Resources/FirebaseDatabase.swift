@@ -24,14 +24,18 @@ extension DatabaseManager {
     public func userExists(with email: String, completion: @escaping ((Bool) -> Void)) {
         
         var safeEmail = email.replacingOccurrences(of: ".", with: "-")
+        // email 안에 . 이 잇다면 - 로 바꿔줌
         safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
+        // safeEmail 안에 @ 이 있다면 - 로 바꿔줌
         
         database.child(safeEmail).observeSingleEvent(of: .value, with: { snapshot in
             guard snapshot.value as? String != nil else {
                 completion(false)
+                // 함수가 종료된 후에 실행됨 @escaping
                 return
             }
             completion(true)
+            // 함수가 종료된 후에 실행됨 @escaping
         })
     }
     
@@ -39,7 +43,9 @@ extension DatabaseManager {
         // 유저가 추가 되면
         database.child(user.safeEmail).setValue([
             "first_name" : user.firstName,
+            // 파이어베이스 안에 first_name 이라는 곳에 firstName 이 저장됨
             "last_name" : user.lastName
+            // 파이어베이스 안에 last_name 이라는 곳에 lastName 이 저장됨
         ])
         
     }
@@ -49,6 +55,7 @@ struct ChatAppUser {
     let firstName: String
     let lastName: String
     let emailAdress: String
+    //    let profilePictureUrl: String
     
     var safeEmail: String {
         var safeEmail = emailAdress.replacingOccurrences(of: ".", with: "-")
@@ -56,5 +63,4 @@ struct ChatAppUser {
         return safeEmail
     }
     
-//    let profilePictureUrl: String
 }
