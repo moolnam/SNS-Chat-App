@@ -5,8 +5,14 @@ target 'test01' do
 
   use_frameworks!
 
-pod 'FBSDKLoginKit'
+pod 'Firebase/Auth'
+pod 'Firebase/Core'
+pod 'FirebaseDatabase'
+pod 'FirebaseStorage'
 
+pod 'GoogleSignIn'
+
+pod 'FBSDKLoginKit'
 
 
 end

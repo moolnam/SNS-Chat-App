@@ -7,8 +7,11 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
 
 class ProfileViewController: UIViewController {
+    
+    
     
     @IBOutlet var tableView: UITableView!
     
@@ -21,6 +24,8 @@ class ProfileViewController: UIViewController {
                            forCellReuseIdentifier: "cell")
         tableView.delegate = self
         tableView.dataSource = self
+        
+        
         
     }
 

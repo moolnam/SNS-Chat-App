@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7827D5C92834CC1300BCFEE7 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 7827D5C82834CC1300BCFEE7 /* FirebaseAuth */; };
-		7827D5CB2834CC1300BCFEE7 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 7827D5CA2834CC1300BCFEE7 /* FirebaseDatabase */; };
+		706EE96C1BCB558C885FD5A8 /* Pods_test01.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E588FD3B3E51A78D753F3E06 /* Pods_test01.framework */; };
 		7827D5CD2834CDAB00BCFEE7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7827D5CC2834CDAB00BCFEE7 /* GoogleService-Info.plist */; };
 		783686EA2833713000C2DECA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783686E92833713000C2DECA /* AppDelegate.swift */; };
 		783686EC2833713000C2DECA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783686EB2833713000C2DECA /* SceneDelegate.swift */; };
@@ -17,8 +16,6 @@
 		783686F32833713000C2DECA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 783686F22833713000C2DECA /* Assets.xcassets */; };
 		783686F62833713000C2DECA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 783686F42833713000C2DECA /* LaunchScreen.storyboard */; };
 		783686FE2833715E00C2DECA /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783686FD2833715E00C2DECA /* LoginViewController.swift */; };
-		78638BAD28376DB5009054D0 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 78638BAC28376DB5009054D0 /* FirebaseStorage */; };
-		78638BAF28376E88009054D0 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 78638BAE28376E88009054D0 /* FirebaseFirestore */; };
 		78638BB128376FF4009054D0 /* FirebaseDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78638BB028376FF4009054D0 /* FirebaseDatabase.swift */; };
 		78662130283B21AB008CFA5A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7866212F283B21AB008CFA5A /* ProfileViewController.swift */; };
 		78DC8E4F28337728007FC1AF /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DC8E4E28337728007FC1AF /* RegisterViewController.swift */; };
@@ -38,6 +35,7 @@
 		783686FD2833715E00C2DECA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		78638BB028376FF4009054D0 /* FirebaseDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabase.swift; sourceTree = "<group>"; };
 		7866212F283B21AB008CFA5A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		78662131283B33B7008CFA5A /* test01.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = test01.entitlements; sourceTree = "<group>"; };
 		78DC8E4E28337728007FC1AF /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		78DC8E5128337F02007FC1AF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8BEBC57E42473A80A62BAC41 /* Pods-test01.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-test01.release.xcconfig"; path = "Target Support Files/Pods-test01/Pods-test01.release.xcconfig"; sourceTree = "<group>"; };
@@ -50,10 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7827D5CB2834CC1300BCFEE7 /* FirebaseDatabase in Frameworks */,
-				78638BAF28376E88009054D0 /* FirebaseFirestore in Frameworks */,
-				7827D5C92834CC1300BCFEE7 /* FirebaseAuth in Frameworks */,
-				78638BAD28376DB5009054D0 /* FirebaseStorage in Frameworks */,
+				706EE96C1BCB558C885FD5A8 /* Pods_test01.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +85,7 @@
 		783686E82833713000C2DECA /* test01 */ = {
 			isa = PBXGroup;
 			children = (
+				78662131283B33B7008CFA5A /* test01.entitlements */,
 				7827D5CC2834CDAB00BCFEE7 /* GoogleService-Info.plist */,
 				78DC8E4D283376CD007FC1AF /* Resources */,
 				78DC8E4B28337664007FC1AF /* Controllers */,
@@ -182,6 +178,7 @@
 				783686E22833713000C2DECA /* Sources */,
 				783686E32833713000C2DECA /* Frameworks */,
 				783686E42833713000C2DECA /* Resources */,
+				D286880F01232360D82DB961 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -189,10 +186,6 @@
 			);
 			name = test01;
 			packageProductDependencies = (
-				7827D5C82834CC1300BCFEE7 /* FirebaseAuth */,
-				7827D5CA2834CC1300BCFEE7 /* FirebaseDatabase */,
-				78638BAC28376DB5009054D0 /* FirebaseStorage */,
-				78638BAE28376E88009054D0 /* FirebaseFirestore */,
 			);
 			productName = test01;
 			productReference = 783686E62833713000C2DECA /* test01.app */;
@@ -223,7 +216,6 @@
 			);
 			mainGroup = 783686DD2833713000C2DECA;
 			packageReferences = (
-				7827D5C72834CC1300BCFEE7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 783686E72833713000C2DECA /* Products */;
 			projectDirPath = "";
@@ -269,6 +261,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D286880F01232360D82DB961 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-test01/Pods-test01-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-test01/Pods-test01-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-test01/Pods-test01-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -431,13 +440,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = test01/test01.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WQD7F9D6LV;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = test01/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = test01;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a profile picture";
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 승인이 필요합니다";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "사진 승인이 필요합니다";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to select a photo for your profile";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -463,13 +474,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = test01/test01.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WQD7F9D6LV;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = test01/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = test01;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to take a profile picture";
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 승인이 필요합니다";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "사진 승인이 필요합니다";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to select a photo for your profile";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -511,40 +524,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		7827D5C72834CC1300BCFEE7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		7827D5C82834CC1300BCFEE7 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7827D5C72834CC1300BCFEE7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		7827D5CA2834CC1300BCFEE7 /* FirebaseDatabase */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7827D5C72834CC1300BCFEE7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseDatabase;
-		};
-		78638BAC28376DB5009054D0 /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7827D5C72834CC1300BCFEE7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
-		};
-		78638BAE28376E88009054D0 /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7827D5C72834CC1300BCFEE7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 783686DE2833713000C2DECA /* Project object */;
 }
