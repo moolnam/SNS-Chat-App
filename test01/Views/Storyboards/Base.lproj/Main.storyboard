@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fF1-D3-0GV">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Conversation View Controller-->
+        <!--채팅-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ConversationViewController" customModule="test01" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,10 +19,96 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" title="채팅" id="lS8-T6-ynD"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="45" y="61"/>
+            <point key="canvasLocation" x="-1229" y="1460"/>
+        </scene>
+        <!--프로필-->
+        <scene sceneID="Dft-W7-5x8">
+            <objects>
+                <viewController id="zJ1-zK-teJ" customClass="ProfileViewController" customModule="test01" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MGA-pk-nm5">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="llE-p6-cIG">
+                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="jlM-ZN-cHC"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="jlM-ZN-cHC" firstAttribute="trailing" secondItem="llE-p6-cIG" secondAttribute="trailing" id="Bm9-kd-yeC"/>
+                            <constraint firstItem="llE-p6-cIG" firstAttribute="top" secondItem="jlM-ZN-cHC" secondAttribute="top" id="KQk-rn-mNZ"/>
+                            <constraint firstItem="jlM-ZN-cHC" firstAttribute="bottom" secondItem="llE-p6-cIG" secondAttribute="bottom" id="TVA-bx-Oxm"/>
+                            <constraint firstItem="llE-p6-cIG" firstAttribute="leading" secondItem="jlM-ZN-cHC" secondAttribute="leading" id="iF6-ec-Xg2"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="프로필" id="fhM-JL-Qio"/>
+                    <connections>
+                        <outlet property="tableView" destination="llE-p6-cIG" id="Bmj-zk-4wX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Vh-3E-Sc4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-255" y="1460"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="DFb-7l-dO5">
+            <objects>
+                <tabBarController id="fF1-D3-0GV" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iqB-KE-BI2">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="dkZ-qL-Akb" kind="relationship" relationship="viewControllers" id="Izu-ic-gv8"/>
+                        <segue destination="c90-90-s1E" kind="relationship" relationship="viewControllers" id="VJu-rZ-Io5"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lO3-yf-07v" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-739" y="-26"/>
+        </scene>
+        <!--채팅-->
+        <scene sceneID="gFu-RX-KJz">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dkZ-qL-Akb" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="채팅" id="XNS-1V-A8z"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="O19-Dh-Jcb">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="fky-aI-z1m"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WJd-hl-wv3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1228" y="698"/>
+        </scene>
+        <!--프로필-->
+        <scene sceneID="qES-eC-l8C">
+            <objects>
+                <navigationController id="c90-90-s1E" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="프로필" id="cTy-W5-jeo"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="b94-L6-q1y">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="zJ1-zK-teJ" kind="relationship" relationship="rootViewController" id="xx1-Up-aki"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PqM-KY-W1Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-255" y="698"/>
         </scene>
     </scenes>
     <resources>

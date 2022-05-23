@@ -13,14 +13,14 @@ class ConversationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
         
-//        DatabaseManager.shared.test()
+        
+
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print("View Did Appear")
+        print("채팅화면")
         super.viewDidAppear(animated)
         
         validateAuth()
