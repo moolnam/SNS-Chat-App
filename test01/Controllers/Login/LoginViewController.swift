@@ -74,6 +74,7 @@ class LoginViewController: UIViewController {
         button.layer.cornerRadius = 12
         button.layer.masksToBounds = true
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        button.permissions = ["public_profile", "email"]
         return button
     }()
     
@@ -90,6 +91,7 @@ class LoginViewController: UIViewController {
         
         emailField.delegate = self
         passwordField.delegate = self
+        faceBookLoginButton.delegate = self
         
         view.addSubview(scrollView)
         scrollView.addSubview(imageView)
@@ -192,4 +194,74 @@ extension LoginViewController: UITextFieldDelegate {
         }
         return true
     }
+}
+
+
+extension LoginViewController: LoginButtonDelegate {
+    
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+        // no operation
+    }
+    
+    func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
+        guard let token = result?.token?.tokenString else {
+            print("User failed to log in with FaceBook")
+            return
+        }
+        
+        let facebookRequest = FBSDKLoginKit.GraphRequest(graphPath: "me", parameters: ["fields" : "email, name"], tokenString: token, version: nil ,httpMethod: .get)
+        
+        facebookRequest.start { _, result, error in
+            guard let result = result as? [String : Any], error == nil else {
+                print("Failed to make facebook graph request")
+                return
+            }
+            print("\(result)")
+            
+            guard let userName = result["name"] as? String,
+                  let email = result["email"] as? String else {
+                // result 에 있는 ["email"] 값을 String 으로 변환
+                // result 에 있는 ["name"] 값을 String 으로 변환
+                print("field to get name and email from fb result")
+                return
+            }
+            
+            let nameComponents = userName.components(separatedBy: "")
+            guard nameComponents.count == 2 else {
+                return
+            }
+            
+            let firstName = nameComponents[0]
+            let lastName = nameComponents[1]
+            
+            DatabaseManager.shared.userExists(with: email, completion: { exists in
+                if !exists {
+                    DatabaseManager.shared.insertUser(with: ChatAppUser(firstName: firstName,
+                                                                        lastName: lastName,
+                                                                        emailAdress: email))
+                }
+            })
+            
+            let credential = FacebookAuthProvider.credential(withAccessToken: token)
+            
+            FirebaseAuth.Auth.auth().signIn(with: credential, completion: { [weak self] authResult, error in
+                
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                guard authResult != nil, error == nil else {
+                    if let error = error {
+                        print("FaceBook credential log in Falied : \(error)")
+                    }
+                    return
+                }
+                print("Successfully logged uesr in")
+                strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+            })
+        }
+        
+    }
+    
+    
 }
