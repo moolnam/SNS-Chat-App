@@ -5,20 +5,18 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.46092554458-2q8mqra8qgkdqhb8ebqtimlbedbfq6q8</string>
+				<string>fb699167404635321</string>
 			</array>
 		</dict>
 	</array>
 	<key>FacebookAppID</key>
-	<string>APP-ID</string>
+	<string>699167404635321</string>
 	<key>FacebookClientToken</key>
-	<string>CLIENT-TOKEN</string>
+	<string>cf768e0cfb7d41fab7525f76d9d133d8</string>
 	<key>FacebookDisplayName</key>
-	<string>APP-NAME</string>
+	<string>test01</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>

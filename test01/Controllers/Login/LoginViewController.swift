@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import FBSDKLoginKit
 
 
 class LoginViewController: UIViewController {
@@ -67,6 +68,16 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    private let faceBookLoginButton: FBLoginButton = {
+        let button = FBLoginButton()
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.layer.cornerRadius = 12
+        button.layer.masksToBounds = true
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        return button
+    }()
+    
+    
     //MARK: - viewDidLoad
     
     override func viewDidLoad() {
@@ -85,6 +96,7 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(emailField)
         scrollView.addSubview(passwordField)
         scrollView.addSubview(loginButton)
+        scrollView.addSubview(faceBookLoginButton) // 페이스북 로그인 버튼
         
         
     }
@@ -98,12 +110,10 @@ class LoginViewController: UIViewController {
         scrollView.frame = view.bounds
         
         let size = view.wigth/3
-        let size2 = view.height/2
         let paddingSize = view.wigth/20
         let widthSize = view.wigth - paddingSize * 2
         let heightSize = view.height/15
-        print(size)
-        print(size2)
+        
         imageView.frame = CGRect(x: (scrollView.wigth-size)/2,
                                  y: 20,
                                  width: size,
@@ -113,7 +123,9 @@ class LoginViewController: UIViewController {
         
         passwordField.frame = CGRect(x: paddingSize, y: emailField.bottom+paddingSize, width: widthSize, height: heightSize)
         
-        loginButton.frame = CGRect(x: paddingSize, y: passwordField.bottom+100, width: widthSize, height: heightSize)
+        loginButton.frame = CGRect(x: paddingSize, y: passwordField.bottom+20, width: widthSize, height: heightSize)
+        
+        faceBookLoginButton.frame = CGRect(x: paddingSize, y: loginButton.bottom+100, width: widthSize, height: heightSize)
     }
     
     @objc private func loginButtonTapped() {
