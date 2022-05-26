@@ -9,6 +9,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 import FBSDKLoginKit
+import GoogleSignIn
 
 
 class LoginViewController: UIViewController {
@@ -78,11 +79,32 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    private let googleLoginButton: GIDSignInButton = {
+        let button = GIDSignInButton()
+        button.layer.cornerRadius = 12
+        button.layer.masksToBounds = true
+        return button
+    }()
     
     //MARK: - viewDidLoad
     
+    private var loginObserver: NSObjectProtocol?
+    
     override func viewDidLoad() {
+        
+        loginObserver = NotificationCenter.default.addObserver(forName: .didLogInNotification, object: nil, queue: .main, using: { [weak self] _ in
+            
+            guard let strongSelf = self else {
+                return
+            }
+            
+            strongSelf.navigationController?.dismiss(animated: true)
+        })
+        
         super.viewDidLoad()
+        
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        
         title = "로그인"
         view.backgroundColor = UIColor(named: "LoginColor")
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "회원가입", style: .plain, target: self, action: #selector(didTapRegister))
@@ -99,8 +121,13 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(passwordField)
         scrollView.addSubview(loginButton)
         scrollView.addSubview(faceBookLoginButton) // 페이스북 로그인 버튼
-        
-        
+        scrollView.addSubview(googleLoginButton)
+    }
+    
+    deinit {
+        if let observer = loginObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
     }
     
     //MARK: - func
@@ -128,6 +155,8 @@ class LoginViewController: UIViewController {
         loginButton.frame = CGRect(x: paddingSize, y: passwordField.bottom+20, width: widthSize, height: heightSize)
         
         faceBookLoginButton.frame = CGRect(x: paddingSize, y: loginButton.bottom+100, width: widthSize, height: heightSize)
+        
+        googleLoginButton.frame = CGRect(x: paddingSize, y: faceBookLoginButton.bottom+20, width: widthSize, height: heightSize)
     }
     
     @objc private func loginButtonTapped() {
@@ -211,7 +240,7 @@ extension LoginViewController: LoginButtonDelegate {
         
         let facebookRequest = FBSDKLoginKit.GraphRequest(graphPath: "me", parameters: ["fields" : "email, name"], tokenString: token, version: nil ,httpMethod: .get)
         
-        facebookRequest.start { _, result, error in
+        facebookRequest.start(completion: { _, result, error in
             guard let result = result as? [String : Any], error == nil else {
                 print("Failed to make facebook graph request")
                 return
@@ -226,7 +255,7 @@ extension LoginViewController: LoginButtonDelegate {
                 return
             }
             
-            let nameComponents = userName.components(separatedBy: "")
+            let nameComponents = userName.components(separatedBy: " ")
             guard nameComponents.count == 2 else {
                 return
             }
@@ -243,7 +272,6 @@ extension LoginViewController: LoginButtonDelegate {
             })
             
             let credential = FacebookAuthProvider.credential(withAccessToken: token)
-            
             FirebaseAuth.Auth.auth().signIn(with: credential, completion: { [weak self] authResult, error in
                 
                 guard let strongSelf = self else {
@@ -259,7 +287,8 @@ extension LoginViewController: LoginButtonDelegate {
                 print("Successfully logged uesr in")
                 strongSelf.navigationController?.dismiss(animated: true, completion: nil)
             })
-        }
+            
+        })
         
     }
     

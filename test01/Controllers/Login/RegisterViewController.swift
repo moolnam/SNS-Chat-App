@@ -141,12 +141,10 @@ class RegisterViewController: UIViewController {
         scrollView.frame = view.bounds
         
         let size = view.wigth/3
-        let size2 = view.height/2
         let paddingSize = view.wigth/20
         let widthSize = view.wigth - paddingSize * 2
         let heightSize = view.height/15
-        print(size)
-        print(size2)
+        
         imageView.frame = CGRect(x: (scrollView.wigth-size)/2,
                                  y: 20,
                                  width: size,

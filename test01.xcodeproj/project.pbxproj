@@ -179,14 +179,13 @@
 				783686E32833713000C2DECA /* Frameworks */,
 				783686E42833713000C2DECA /* Resources */,
 				D286880F01232360D82DB961 /* [CP] Embed Pods Frameworks */,
+				EDC0EAC1DAA98FCEF7C80957 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = test01;
-			packageProductDependencies = (
-			);
 			productName = test01;
 			productReference = 783686E62833713000C2DECA /* test01.app */;
 			productType = "com.apple.product-type.application";
@@ -215,8 +214,6 @@
 				Base,
 			);
 			mainGroup = 783686DD2833713000C2DECA;
-			packageReferences = (
-			);
 			productRefGroup = 783686E72833713000C2DECA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -278,6 +275,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-test01/Pods-test01-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EDC0EAC1DAA98FCEF7C80957 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-test01/Pods-test01-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-test01/Pods-test01-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-test01/Pods-test01-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
